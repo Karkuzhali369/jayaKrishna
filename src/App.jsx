@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /* ---------- CONTENT (edit here) ---------- */
 const ECOMMERCE_URL = "https://jayakrishna-ecommerce.noorjahan-0569.workers.dev/";
@@ -45,8 +45,11 @@ const GALLERY = [
 const TA = {
   Home: "முகப்பு", About: "எங்களைப் பற்றி", Gallery: "படத்தொகுப்பு", Insights: "நுண்ணறிவு",
   "Contact Us": "தொடர்புக்கு", "E-Commerce": "இ-காமர்ஸ்", "About Jayakrishna": "ஜெயகிருஷ்ணா பற்றி",
-  h1: "நோக்கத்துடன் உருவானது.", h2: "ஆரோக்கிய வாழ்விற்காக அரைக்கப்பட்டது.",
+  "Every grain matters to us": "ஒவ்வொரு தானியமும் எங்களுக்கு முக்கியம்", h1: "நோக்கத்துடன் உருவானது.", h2: "ஆரோக்கிய வாழ்விற்காக அரைக்கப்பட்டது.",
 };
+
+const HIGHLIGHTS = ["100% Unbleached & Safe", "2-Day Refrigerated Dough Stability", "+10% Higher Yield", "Natural Half-White Tone", "Zero Preservatives Needed", "Superior Water Absorption", "Direct Doorstep Delivery"];
+const TYPES = ["Dealership / Distributorship", "Bakery / Hotel Supply", "Bulk Commercial Supply", "Retail / Wholesale"];
 
 const SIZES_LABEL = ["500g • 1kg • 2kg • 5kg • 10kg", "25kg • 50kg • 90kg", "Thirumangalam, TN"];
 
@@ -68,25 +71,52 @@ function Words({ text, base = 0 }) {
 }
 
 function Defs() {
-  const ears = [0, 1, 2, 3, 4].map((k) => 50 - k * 9);
+  const ks = [0, 1, 2, 3, 4, 5, 6];
+  const fan = [-24, -16, -8, 0, 8, 16, 24];
+  const plant = [[-26, 205], [-13, 232], [0, 250], [13, 228], [26, 200]];
   return (
     <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true" focusable="false">
       <defs>
-        <linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#ffd45e" /><stop offset="1" stopColor="#c98a1b" /></linearGradient>
-        <symbol id="stalk" viewBox="0 0 40 200">
-          <path d="M20 200 C21 150 19 100 20 46" stroke="#a16207" strokeWidth="2.4" fill="none" strokeLinecap="round" />
-          <path d="M20 176 C8 164 4 144 2 120 C14 130 20 150 20 176Z" fill="#9bb04a" opacity=".9" />
-          <path d="M20 150 C32 138 36 118 38 96 C26 108 20 128 20 150Z" fill="#b5c35e" opacity=".9" />
-          {ears.map((y) => (
-            <g key={y}>
-              <line x1="14" y1={y - 5} x2="6" y2={y - 24} stroke="#e0a82e" strokeWidth=".8" />
-              <line x1="26" y1={y - 5} x2="34" y2={y - 24} stroke="#e0a82e" strokeWidth=".8" />
-              <ellipse cx="14" cy={y} rx="3.6" ry="7.4" transform={`rotate(-28 14 ${y})`} fill="url(#gr)" />
-              <ellipse cx="26" cy={y} rx="3.6" ry="7.4" transform={`rotate(28 26 ${y})`} fill="url(#gr)" />
-            </g>
-          ))}
-          <ellipse cx="20" cy="8" rx="3.2" ry="7.6" fill="url(#gr)" />
-          <line x1="20" y1="2" x2="20" y2="-10" stroke="#e0a82e" strokeWidth=".8" />
+        <linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#ffe08a" /><stop offset=".55" stopColor="#f2b632" /><stop offset="1" stopColor="#c98a12" /></linearGradient>
+        <linearGradient id="gr2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fff0b8" /><stop offset="1" stopColor="#e3a527" /></linearGradient>
+        {/* Triticum aestivum: bearded spike, alternating (distichous) spikelets, long awns, node and blade leaves */}
+        <symbol id="stalk" viewBox="0 0 40 224">
+          <g transform="translate(0 24)">
+            <path d="M20 200 C21 150 19 100 20 54" stroke="#c19a2e" strokeWidth="2.2" fill="none" strokeLinecap="round" />
+            <circle cx="20" cy="150" r="2" fill="#d8b04a" />
+            <path d="M20 152 C7 142 2 120 0 94 C11 108 19 128 20 152Z" fill="#c9b25a" />
+            <path d="M20 180 C33 170 38 148 40 124 C29 138 21 158 20 180Z" fill="#dcc572" />
+            <line x1="20" y1="54" x2="20" y2="4" stroke="#e0a82e" strokeWidth="1.6" />
+            {ks.map((k) => {
+              const y = 50 - k * 6.6, side = k % 2 ? 1 : -1;
+              return (
+                <g key={k} transform={`translate(20 ${y}) scale(${side} 1)`}>
+                  <line x1="6" y1="-5" x2="15" y2="-31" stroke="#e9bb45" strokeWidth=".7" />
+                  <line x1="9" y1="-5" x2="19" y2="-27" stroke="#e9bb45" strokeWidth=".7" />
+                  <ellipse cx="5" cy="0" rx="3.1" ry="6.4" transform="rotate(14 5 0)" fill="url(#gr)" />
+                  <ellipse cx="8" cy="-2" rx="2.5" ry="5.2" transform="rotate(26 8 -2)" fill="url(#gr2)" />
+                </g>
+              );
+            })}
+            <ellipse cx="20" cy="3" rx="2.8" ry="6.6" fill="url(#gr)" />
+            <line x1="20" y1="-3" x2="20" y2="-22" stroke="#e9bb45" strokeWidth=".8" />
+          </g>
+        </symbol>
+        {/* a tied sheaf of wheat: stems cross at the band, ears fan out above, cut stems flare below */}
+        <symbol id="bundle" viewBox="0 0 120 150">
+          {fan.map((a, i) => <use key={a} href="#stalk" x={50.2 + (i - 3) * 2.4} y={26 + (i % 2) * 5} width="19.6" height="112" transform={`rotate(${a * 1.25} 60 100)`} />)}
+          <rect x="43" y="93" width="34" height="13" rx="6.5" fill="#c0841c" />
+          <rect x="43" y="93" width="34" height="5" rx="2.5" fill="#e0a43a" opacity=".7" />
+          <path d="M48 94 l5 12 M56 94 l5 12 M64 94 l5 12 M72 94 l4 12" stroke="#8f5c0a" strokeWidth="1.5" />
+          <path d="M74 103 C88 100 94 114 84 120 C82 112 78 108 74 103Z" fill="#d79a2a" />
+          <path d="M70 105 C76 116 72 126 64 130 C66 120 68 112 70 105Z" fill="#c0841c" />
+        </symbol>
+        {/* whole Triticum aestivum plant: tillers + long arching blade leaves */}
+        <symbol id="plant" viewBox="0 0 200 300">
+          <path d="M100 292 C60 250 30 200 18 130 C48 168 88 232 100 292Z" fill="#c9b25a" opacity=".85" />
+          <path d="M100 292 C140 252 172 204 186 136 C154 172 112 232 100 292Z" fill="#dcc572" opacity=".85" />
+          <path d="M100 292 C84 240 66 196 60 150 C84 186 100 240 100 292Z" fill="#d3bd66" opacity=".9" />
+          {plant.map(([a, h]) => <use key={a} href="#stalk" x={100 - h * 0.0893} y={292 - h} width={h * 0.1786} height={h} transform={`rotate(${a} 100 292)`} />)}
         </symbol>
       </defs>
     </svg>
@@ -106,21 +136,27 @@ function WheatRow({ className = "", count = 30 }) {
   return (
     <div className={`wheatrow ${className}`} aria-hidden="true">
       {Array.from({ length: count }, (_, i) => (
-        <svg key={i} viewBox="0 0 40 200" style={{ "--i": i, "--h": `${46 + ((i * 37) % 26)}px` }}><use href="#stalk" /></svg>
+        <svg key={i} viewBox="0 0 40 224" style={{ "--i": i, "--h": `${46 + ((i * 37) % 26)}px` }}><use href="#stalk" /></svg>
       ))}
     </div>
   );
 }
 
-const LOADER_H = [120, 150, 178, 205, 170, 215, 165, 195, 160, 140, 115];
+const BUNDLES = [
+  { x: 0, y: 0, d: 0, s: 1 }, { x: 128, y: 0, d: 0.22, s: 1.08 }, { x: 256, y: 0, d: 0.44, s: 1 },
+  { x: 64, y: 96, d: 0.86, s: 1 }, { x: 192, y: 96, d: 1.08, s: 1 },
+];
 function Loader({ out }) {
   return (
     <div className={`loader ${out ? "out" : ""}`} role="status" aria-label="Loading">
       <Grains />
       <div className="lbox">
         <div className="lfield">
-          {LOADER_H.map((h, i) => (
-            <div key={i} className="ls" style={{ "--d": `${i * 0.11}s`, "--h": `${h}px` }}><svg viewBox="0 0 40 200"><use href="#stalk" /></svg></div>
+          <i className="lshadow" />
+          {BUNDLES.map((b, i) => (
+            <div key={i} className="lb" style={{ left: b.x, bottom: b.y, "--d": `${b.d}s`, "--sc": b.s }}>
+              <img src="images/wheat-bundle.png" alt="" decoding="async" style={{ animationDelay: `${b.d + 1}s` }} />
+            </div>
           ))}
         </div>
         <div className="lname">{"JAYAKRISHNA".split("").map((c, i) => <span key={i} style={{ "--i": i }}>{c}</span>)}</div>
@@ -139,7 +175,7 @@ export default function App() {
   const [open, setOpen] = useState(null); // open dropdown
   const [slide, setSlide] = useState(0);
   const [gcat, setGcat] = useState("All Photos");
-  const [form, setForm] = useState({ name: "", phone: "", biz: "", type: "Dealership / Distributorship", region: "", msg: "" });
+  const [form, setForm] = useState({ name: "", phone: "", biz: "", type: TYPES[0], region: "", msg: "", website: "" });
   const [errs, setErrs] = useState({});
   const [sent, setSent] = useState(false);
   const [ready, setReady] = useState(false);   // loader finished -> start page animations
@@ -180,18 +216,26 @@ export default function App() {
 
   const nav = (id) => { go(id); setMenu(false); setOpen(null); };
 
+  const lastSend = useRef(0);
+  // strip control characters / angle brackets, collapse whitespace, cap length
+  const clean = (v, max) => String(v).replace(/[\u0000-\u001f\u007f<>]/g, " ").replace(/\s+/g, " ").trim().slice(0, max);
   const submit = (e) => {
     e.preventDefault();
+    if (form.website) { setSent(true); return; }            // honeypot: bots fill hidden fields
+    if (Date.now() - lastSend.current < 8000) return;       // basic rate limit
+    const v = { name: clean(form.name, 60), phone: clean(form.phone, 20), biz: clean(form.biz, 80), region: clean(form.region, 80), msg: clean(form.msg, 800) };
+    const type = TYPES.includes(form.type) ? form.type : TYPES[0];
     const er = {};
-    if (!form.name.trim()) er.name = "Enter your full name";
-    if (!/^(\+91)?[\s-]?[6-9]\d{4}[\s-]?\d{5}$/.test(form.phone.trim())) er.phone = "Enter a valid 10-digit mobile number";
+    if (!/^[\p{L}\p{M}.'\- ]{2,60}$/u.test(v.name)) er.name = "Enter your full name";
+    if (!/^(\+91)?[\s-]?[6-9]\d{4}[\s-]?\d{5}$/.test(v.phone)) er.phone = "Enter a valid 10-digit mobile number";
     setErrs(er);
     if (Object.keys(er).length) return;
-    const body = `Name: ${form.name}\nPhone: ${form.phone}\nBusiness: ${form.biz}\nType: ${form.type}\nRegion: ${form.region}\n\n${form.msg}`;
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Partnership enquiry: " + form.type)}&body=${encodeURIComponent(body)}`;
+    lastSend.current = Date.now();
+    const body = `Name: ${v.name}\nPhone: ${v.phone}\nBusiness: ${v.biz}\nType: ${type}\nRegion: ${v.region}\n\n${v.msg}`;
+    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Partnership enquiry: " + type)}&body=${encodeURIComponent(body)}`;
     setSent(true);
   };
-  const f = (k) => ({ value: form[k], onChange: (e) => setForm({ ...form, [k]: e.target.value }) });
+  const f = (k, max = 120) => ({ value: form[k], maxLength: max, onChange: (e) => setForm({ ...form, [k]: e.target.value }) });
 
   const navItems = [
     ["Home", "home"],
@@ -207,7 +251,7 @@ export default function App() {
       <div className="topbar">
         <div className="wrap row between">
           <div className="row gap">
-            <span>📍 Thirumangalam, Madurai, TN</span>
+            <span className="hide-xs">📍 Thirumangalam, Madurai, TN</span>
             <a href={`tel:${PHONE.replace(/\s/g, "")}`}>📞 {PHONE}</a>
             <a href={`mailto:${EMAIL}`} className="hide-sm">✉️ {EMAIL}</a>
           </div>
@@ -223,7 +267,7 @@ export default function App() {
       <header className={`nav ${scrolled ? "scrolled" : ""}`}>
         <div className="wrap row between">
           <a href="#home" className="logo" onClick={(e) => { e.preventDefault(); nav("home"); }}>
-            <span className="logo-mark">🌾</span>
+            <span className="logo-mark"><img src="images/wheat-bundle.png" alt="" /></span>
             <span><b>JAYAKRISHNA</b><em>FLOUR MILLS</em><small>QUALITY LIES IN CONSISTENCY</small></span>
           </a>
           <nav className={`links ${menu ? "show" : ""}`} aria-label="Main">
@@ -244,7 +288,7 @@ export default function App() {
             ))}
           </nav>
           <div className="row gap">
-            <a className="pill" href={ECOMMERCE_URL} target="_blank" rel="noreferrer">🛒 {t("E-Commerce")}</a>
+            <a className="pill" href={ECOMMERCE_URL} target="_blank" rel="noopener noreferrer">🛒 {t("E-Commerce")}</a>
             <button className="burger" onClick={() => setMenu(!menu)} aria-label="Toggle menu">{menu ? "✕" : "☰"}</button>
           </div>
         </div>
@@ -256,7 +300,7 @@ export default function App() {
           <Grains />
           <div className="hero wrap">
             <div>
-              <span className="chip up" style={{ "--d": "100ms" }}>• Pneumatic Roller Mills • Madurai, TN</span>
+              <span className="chip big up" style={{ "--d": "100ms" }}>🌾 {t("Every grain matters to us")}</span>
               <h1 className={`wd ${ready ? "in" : ""}`}>
                 {lang === "ta"
                   ? <><Words text={TA.h1} base={2} /><span className="l2"><Words text={TA.h2} base={5} /></span></>
@@ -272,7 +316,7 @@ export default function App() {
                 ))}
               </div>
               <div className="row gap wrapx cta up" style={{ "--d": "1750ms" }}>
-                <a className="btn" href={ECOMMERCE_URL} target="_blank" rel="noreferrer">{t("E-Commerce")} →</a>
+                <a className="btn" href={ECOMMERCE_URL} target="_blank" rel="noopener noreferrer">{t("E-Commerce")} →</a>
                 <button className="btn ghost" onClick={() => nav("about")}>{t("About Jayakrishna")}</button>
               </div>
               <div className="stats up" style={{ "--d": "1950ms" }}>
@@ -293,6 +337,7 @@ export default function App() {
                 <div className="dots">{SLIDES.map((_, i) => <button key={i} className={i === slide ? "on" : ""} onClick={() => setSlide(i)} aria-label={`Slide ${i + 1}`} />)}</div>
                 <i key={slide} className="sbar" />
               </div>
+              <img className="heroWheat" src="images/wheat-bundle.png" alt="" aria-hidden="true" decoding="async" />
               <div className="float f1">🌾 100% Unbleached &amp; Safe</div>
               <div className="float f2">✨ 21–22 Paratas per kg</div>
             </div>
@@ -300,11 +345,24 @@ export default function App() {
           <WheatRow className="hero-row" />
         </section>
 
+        <div className="marquee" aria-label="Why bakers choose our maida">
+          <div className="mtrack">
+            {[0, 1].map((n) => (
+              <ul key={n} aria-hidden={n === 1}>
+                {HIGHLIGHTS.map((h) => <li key={h}><i>✦</i>{h}</li>)}
+              </ul>
+            ))}
+          </div>
+        </div>
+
         {/* ABOUT */}
-        <section id="about" className="sec white">
+        <section id="about" className="sec white aboutsec">
+          <img className="plant pl" src="images/wheat-bundle.png" alt="" aria-hidden="true" decoding="async" />
+          <img className="plant pr" src="images/wheat-bundle.png" alt="" aria-hidden="true" decoding="async" />
           <div className="wrap center">
             <span className="chip rv">ABOUT JAYAKRISHNA FLOUR MILLS</span>
             <h2 className="wd rv"><Words text="Where experience meets a forward-looking approach." /></h2>
+            <span className="latin rv">🌾 <i>Triticum aestivum</i> · Common Bread Wheat</span>
             <p className="muted narrow rv" style={{ "--d": "150ms" }}>Flour is valuable, versatile and nutritious. Packed with vitamins and minerals, it forms an essential foundation of daily life — from fresh morning rotis to artisanal bakery loaves.</p>
             <div className="grid3 left">
               {FEATURES.map((x, i) => <div className="card rv" style={{ "--d": `${i * 130}ms` }} key={x.t}><i className="ico">{x.icon}</i><h4>{x.t}</h4><p>{x.d}</p></div>)}
@@ -352,12 +410,13 @@ export default function App() {
               <h2 className="wd rv l"><Words text="Partner with Jayakrishna Flour Mills" /></h2>
               <p className="muted small rv" style={{ "--d": "150ms" }}>Expand your wholesale business with our trusted milling legacy. Reach out for dealership or commercial supply contracts.</p>
               <div className="fgrid">
-                <label>Full Name *<input placeholder="e.g. Anand Kumar" {...f("name")} aria-invalid={!!errs.name} />{errs.name && <em className="err">{errs.name}</em>}</label>
-                <label>Contact Phone *<input placeholder="+91 94433 52716" inputMode="tel" {...f("phone")} aria-invalid={!!errs.phone} />{errs.phone && <em className="err">{errs.phone}</em>}</label>
-                <label>Business / Enterprise Name<input placeholder="Distribution Agency, Bakery, etc." {...f("biz")} /></label>
-                <label>Partnership Type<select {...f("type")}><option>Dealership / Distributorship</option><option>Bakery / Hotel Supply</option><option>Bulk Commercial Supply</option><option>Retail / Wholesale</option></select></label>
-                <label className="full">Operating Region / District<input placeholder="e.g. Madurai, Chennai, Coimbatore, Kerala" {...f("region")} /></label>
-                <label className="full">Proposal / Business Details<textarea rows="3" placeholder="Tell us about your distribution reach, existing network, or requirement details..." {...f("msg")} /></label>
+                <label>Full Name *<input placeholder="e.g. Anand Kumar" {...f("name", 60)} autoComplete="name" aria-invalid={!!errs.name} />{errs.name && <em className="err">{errs.name}</em>}</label>
+                <label>Contact Phone *<input placeholder="+91 94433 52716" inputMode="tel" {...f("phone", 20)} autoComplete="tel" aria-invalid={!!errs.phone} />{errs.phone && <em className="err">{errs.phone}</em>}</label>
+                <label>Business / Enterprise Name<input placeholder="Distribution Agency, Bakery, etc." {...f("biz", 80)} autoComplete="organization" /></label>
+                <label>Partnership Type<select {...f("type")}>{TYPES.map((x) => <option key={x}>{x}</option>)}</select></label>
+                <label className="hp" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" {...f("website", 50)} /></label>
+                <label className="full">Operating Region / District<input placeholder="e.g. Madurai, Chennai, Coimbatore, Kerala" {...f("region", 80)} /></label>
+                <label className="full">Proposal / Business Details<textarea rows="3" placeholder="Tell us about your distribution reach, existing network, or requirement details..." {...f("msg", 800)} /></label>
               </div>
               <button className="btn wide" type="submit">SUBMIT PARTNERSHIP ENQUIRY ➤</button>
               {sent && <p className="ok" role="status">Your email app should open with the enquiry. If it did not, write to {EMAIL} or call {PHONE}.</p>}
@@ -371,7 +430,7 @@ export default function App() {
               </div>
               <div className="map">
                 <div className="row between"><b>📌 Thirumangalam Mill Site</b><span className="open">Open Mon-Sat</span></div>
-                <iframe title="Mill location map" loading="lazy" src="https://www.google.com/maps?q=Thirumangalam,Madurai&output=embed" />
+                <iframe title="Mill location map" loading="lazy" referrerPolicy="no-referrer" sandbox="allow-scripts allow-same-origin" src="https://www.google.com/maps?q=Thirumangalam,Madurai&output=embed" />
               </div>
             </aside>
           </div>
@@ -385,7 +444,7 @@ export default function App() {
             <div className="row gap soc">{[["f", "Facebook"], ["◎", "Instagram"], ["✆", "WhatsApp"]].map(([s, n]) => <a key={n} href={n === "WhatsApp" ? "https://wa.me/919443352716" : "#"} aria-label={n}>{s}</a>)}</div></div>
           <div><h5>COMPANY</h5>
             <a href="#about" onClick={(e) => { e.preventDefault(); nav("about"); }}>About JFM Heritage</a>
-            <a href={ECOMMERCE_URL} target="_blank" rel="noreferrer">E-Commerce</a></div>
+            <a href={ECOMMERCE_URL} target="_blank" rel="noopener noreferrer">E-Commerce</a></div>
           <div><h5>CORPORATE POLICIES</h5><a href="#">Terms & Conditions</a><a href="#">Privacy Policy</a><a href="#">Return Policy</a><a href="#gallery" onClick={(e) => { e.preventDefault(); nav("gallery"); }}>Plant Infrastructure Gallery</a></div>
           <div><h5>MILL & OFFICE</h5><p>{ADDRESS}</p><a href={`tel:${PHONE.replace(/\s/g, "")}`}>📞 {PHONE}</a><a href={`mailto:${EMAIL}`}>✉️ {EMAIL}</a></div>
         </div>
