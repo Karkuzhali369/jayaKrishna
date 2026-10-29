@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 /* ---------- CONTENT (edit here) ---------- */
-const ECOMMERCE_URL = "https://wa.me/919443352716?text=" + encodeURIComponent("Hello Jayakrishna Flour Mills, I would like to order Maida online.");
+const ECOMMERCE_URL = "https://jayakrishna-ecommerce.noorjahan-0569.workers.dev/" + encodeURIComponent("Hello Jayakrishna Flour Mills, I would like to order Maida online.");
 const PHONE = "+91 94433 52716";
 const EMAIL = "contact@jayakrishna.org";
 const ADDRESS = "82/3, Maravankulam, Thirumangalam, Madurai – 625706, Tamil Nadu, India";
