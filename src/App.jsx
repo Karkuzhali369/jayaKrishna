@@ -473,7 +473,7 @@ export default function App() {
 			
 			<footer>
 				<div className="wrap fgrid4 rv">
-					<div><img className="flogo" src={LOGO} alt="Jayakrishna – Quality lies in Consistency" /><p>Milling premium Whole Wheat Atta, Maida, Commercial Atta, and Golden Suji for 40 years across our trusted brand portfolio: Lion, Kili, and Cycle.</p>
+					<div><p>Milling premium Whole Wheat Atta, Maida, Commercial Atta, and Golden Suji for 40 years across our trusted brand portfolio: Lion, Kili, and Cycle.</p>
 						<div className="row gap soc">{[["f", "Facebook"], ["◎", "Instagram"], ["✆", "WhatsApp"]].map(([s, n]) => <a key={n} href={n === "WhatsApp" ? "https://wa.me/919443352716" : "#"} aria-label={n}>{s}</a>)}</div></div>
 					<div><h5>COMPANY</h5>
 						<a href="#about" onClick={(e) => { e.preventDefault(); nav("about"); }}>About JFM Heritage</a>
