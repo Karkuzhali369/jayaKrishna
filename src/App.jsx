@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 
 /* ---------- CONTENT (edit here) ---------- */
 const ECOMMERCE_URL = "https://jayakrishna-ecommerce.noorjahan-0569.workers.dev/";
-const PHONE = "+91 94433 52716";
+const PHONE = "+91 93459 11301";
+const PHONE2 = "+91 75959 59797";
 const EMAIL = "contact@jayakrishna.org";
 const ADDRESS = "82/3, Maravankulam, Thirumangalam, Madurai – 625706, Tamil Nadu, India";
 
@@ -259,6 +260,7 @@ export default function App() {
 					<div className="row gap">
 						<span className="hide-xs">📍 Thirumangalam, Madurai, TN</span>
 						<a href={`tel:${PHONE.replace(/\s/g, "")}`}>📞 {PHONE}</a>
+						<a href={`tel:${PHONE2.replace(/\s/g, "")}`}>📞 {PHONE2}</a>
 						<a href={`mailto:${EMAIL}`} className="hide-sm">✉️ {EMAIL}</a>
 					</div>
 					<div className="row gap">
@@ -444,7 +446,7 @@ export default function App() {
 							<p className="muted small rv" style={{ "--d": "150ms" }}>Expand your wholesale business with our trusted milling legacy. Reach out for dealership or commercial supply contracts.</p>
 							<div className="fgrid">
 								<label>Full Name *<input placeholder="e.g. Anand Kumar" {...f("name", 60)} autoComplete="name" aria-invalid={!!errs.name} />{errs.name && <em className="err">{errs.name}</em>}</label>
-								<label>Contact Phone *<input placeholder="+91 94433 52716" inputMode="tel" {...f("phone", 20)} autoComplete="tel" aria-invalid={!!errs.phone} />{errs.phone && <em className="err">{errs.phone}</em>}</label>
+								<label>Contact Phone *<input placeholder="+91 93459 11301" inputMode="tel" {...f("phone", 20)} autoComplete="tel" aria-invalid={!!errs.phone} />{errs.phone && <em className="err">{errs.phone}</em>}</label>
 								<label>Business / Enterprise Name<input placeholder="Distribution Agency, Bakery, etc." {...f("biz", 80)} autoComplete="organization" /></label>
 								<label>Partnership Type<select {...f("type")}>{TYPES.map((x) => <option key={x}>{x}</option>)}</select></label>
 								<label className="hp" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" {...f("website", 50)} /></label>
@@ -457,7 +459,8 @@ export default function App() {
 						<aside className="rv r">
 							<div className="dark">
 								<h3>Direct Mill Contacts</h3>
-								<div className="crow"><i>📞</i><div><small>Direct Contact</small><a href={`tel:${PHONE.replace(/\s/g, "")}`}>{PHONE}</a></div></div>
+								<div className="crow"><i>📞</i><div><small>Direct Contact</small><a href={`tel:${PHONE.replace(/\s/g, "")}`}>{PHONE}</a><br/><a href={`tel:${PHONE2.replace(/\s/g, "")}`}>{PHONE2}</a></div></div>
+								
 								<div className="crow"><i>✉️</i><div><small>Email Inquiries</small><a href={`mailto:${EMAIL}`}>{EMAIL}</a></div></div>
 								<div className="crow"><i>📍</i><div><small>Mill Location & Office</small><span>Jayakrishna Flour Mills<br />{ADDRESS.replace(", Madurai", ",\nMadurai")}</span></div></div>
 							</div>
@@ -474,12 +477,12 @@ export default function App() {
 			<footer>
 				<div className="wrap fgrid4 rv">
 					<div><p>Milling premium Whole Wheat Atta, Maida, Commercial Atta, and Golden Suji for 40 years across our trusted brand portfolio: Lion, Kili, and Cycle.</p>
-						<div className="row gap soc">{[["f", "Facebook"], ["◎", "Instagram"], ["✆", "WhatsApp"]].map(([s, n]) => <a key={n} href={n === "WhatsApp" ? "https://wa.me/919443352716" : "#"} aria-label={n}>{s}</a>)}</div></div>
+						<div className="row gap soc">{[["f", "Facebook"], ["◎", "Instagram"], ["✆", "WhatsApp"]].map(([s, n]) => <a key={n} href={n === "WhatsApp" ? "https://wa.me/919345911301" : "#"} aria-label={n}>{s}</a>)}</div></div>
 					<div><h5>COMPANY</h5>
 						<a href="#about" onClick={(e) => { e.preventDefault(); nav("about"); }}>About JFM Heritage</a>
 						<a href={ECOMMERCE_URL} target="_blank" rel="noopener noreferrer">E-Commerce</a></div>
 					<div><h5>CORPORATE POLICIES</h5><a href="#">Terms & Conditions</a><a href="#">Privacy Policy</a><a href="#">Return Policy</a><a href="#gallery" onClick={(e) => { e.preventDefault(); nav("gallery"); }}>Plant Infrastructure Gallery</a></div>
-					<div><h5>MILL & OFFICE</h5><p>{ADDRESS}</p><a href={`tel:${PHONE.replace(/\s/g, "")}`}>📞 {PHONE}</a><a href={`mailto:${EMAIL}`}>✉️ {EMAIL}</a></div>
+					<div><h5>MILL & OFFICE</h5><p>{ADDRESS}</p><a href={`tel:${PHONE.replace(/\s/g, "")}`}>📞 {PHONE}</a><a href={`tel:${PHONE2.replace(/\s/g, "")}`}>📞 {PHONE2}</a><br/><a href={`mailto:${EMAIL}`}>✉️ {EMAIL}</a></div>
 				</div>
 				<div className="wrap row between wrapx copy"><span>© 2026 Jayakrishna Flour Mills (JFM). All rights reserved. • FSSAI Certified</span><span>Pure wheat nutrition. Milled with consistency for 40 years.</span></div>
 			</footer>
