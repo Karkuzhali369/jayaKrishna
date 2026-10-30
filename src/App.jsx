@@ -45,14 +45,25 @@ const GALLERY = [
 
 const TA = {
 	Home: "முகப்பு", About: "எங்களைப் பற்றி", Gallery: "படத்தொகுப்பு", Insights: "நுண்ணறிவு",
+	Testimonials: "கருத்துகள்", "40 Years of Trust": "40 ஆண்டுகால நம்பிக்கை",
 	"Contact Us": "தொடர்புக்கு", "E-Commerce": "இ-காமர்ஸ்", "About Jayakrishna": "ஜெயகிருஷ்ணா பற்றி",
 	"Every grain matters to us": "ஒவ்வொரு தானியமும் எங்களுக்கு முக்கியம்", h1: "நோக்கத்துடன் உருவானது.", h2: "ஆரோக்கிய வாழ்விற்காக அரைக்கப்பட்டது.",
 };
 
-const HIGHLIGHTS = ["100% Unbleached & Safe", "2-Day Refrigerated Dough Stability", "+10% Higher Yield", "Natural Half-White Tone", "Zero Preservatives Needed", "Superior Water Absorption", "Direct Doorstep Delivery"];
+const HIGHLIGHTS = ["40 Years of Trusted Milling", "100% Unbleached & Safe", "2-Day Refrigerated Dough Stability", "+10% Higher Yield", "Natural Half-White Tone", "Zero Preservatives Needed", "Superior Water Absorption", "Direct Doorstep Delivery"];
 const TYPES = ["Dealership / Distributorship", "Bakery / Hotel Supply", "Bulk Commercial Supply", "Retail / Wholesale"];
 
 const SIZES_LABEL = ["500g • 1kg • 2kg • 5kg • 10kg", "25kg • 50kg • 90kg", "Thirumangalam, TN"];
+
+const LOGO = "images/logo.png";
+
+const TESTIMONIALS = [
+	{ who: "Madurai Hoteliers Association", init: "MH", quote: "We switch between Kili and Lion brands based on stock availability from Thirumangalam and Kappalur. Both deliver identical, world-class soft paratas that our customers love!" },
+	{ who: "Royal Bakery Chain", init: "RB", badge: "0.0% (Zero Bleach)", quote: "Our puffs and pastries expanded by 20% in puffiness without adding any dough improver. Jayakrishna Flour Mill's Maida is a game-changer for commercial bakers." },
+	{ who: "Online Bulk Buyer", role: "E-Commerce Client", init: "OB", quote: "Ordering online direct from Jayakrishna Flour Mill saved us time and hassle. The flour quality is 100% consistent across every bag we receive!" },
+];
+
+const YEARS = [["40", "Years of milling legacy"], ["3", "Trusted brands: Lion, Kili & Cycle"], ["100%", "Unbleached & safe"]];
 
 /* ---------- SMALL HELPERS ---------- */
 const go = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -148,43 +159,14 @@ const BUNDLES = [
 	{ x: 64, y: 96, d: 0.86, s: 1 }, { x: 192, y: 96, d: 1.08, s: 1 },
 ];
 
-function WheatLine() {
-  const ys = [100, 89, 78, 67, 56, 45, 34];
-  // [angle, draw order] - center ear draws first, outer ears follow
-  const ears = [[-30, 3], [30, 3], [-20, 2], [20, 2], [-10, 1], [10, 1], [0, 0]];
-  return (
-    <svg className="wline" viewBox="-62 -26 224 272" aria-hidden="true">
-      {ears.map(([a, o]) => {
-        const b = o * 1.5; // stagger offset per ear
-        return (
-          <g key={a} transform={`rotate(${a} 50 200)`}>
-            <path className="dr nf" pathLength="1" style={{ "--i": b }} d="M50 238 C49 190 51 140 50 40" />
-            {ys.map((y, k) => [1, -1].map((s) => (
-              <g key={`${k}${s}`} transform={`translate(50 ${y}) scale(${s} 1)`}>
-                <path className="dr" pathLength="1" style={{ "--i": b + (k * 2 + (s > 0 ? 1 : 2)) * 0.5 }} d="M0 0 C9 -2 14 -11 12 -21 C4 -17 0 -9 0 0Z" />
-                <path className="dr nf" pathLength="1" style={{ "--i": b + (k * 2 + 3) * 0.5 }} d="M11 -20 L19 -42" />
-              </g>
-            )))}
-            <path className="dr" pathLength="1" style={{ "--i": b + 8 }} d="M50 38 C43 30 43 16 50 4 C57 16 57 30 50 38Z" />
-            <path className="dr nf" pathLength="1" style={{ "--i": b + 8.5 }} d="M50 6 L50 -18" />
-          </g>
-        );
-      })}
-      {/* tie band + bow */}
-      <path className="dr" pathLength="1" style={{ "--i": 9 }} d="M31 193 Q50 199 69 193 L70 207 Q50 213 30 207Z" />
-      <path className="dr" pathLength="1" style={{ "--i": 10 }} d="M50 204 C28 186 20 212 44 210Z" />
-      <path className="dr" pathLength="1" style={{ "--i": 10 }} d="M50 204 C72 186 80 212 56 210Z" />
-    </svg>
-  );
-}
 function Loader({ out }) {
 	return (
 		<div className={`loader ${out ? "out" : ""}`} role="status" aria-label="Loading">
 			<Grains />
 			<div className="lbox">
-				<div className="lwrap"><WheatLine /></div>
-				<div className="lname">{"JAYAKRISHNA".split("").map((c, i) => <span key={i} style={{ "--i": i }}>{c}</span>)}</div>
-				<div className="lsub">FLOUR MILLS</div>
+				<img className="lwheat" src="images/wheat-strands.png" alt="" aria-hidden="true" />
+				<img className="llogo" src={LOGO} alt="Jayakrishna – Quality lies in Consistency" />
+				<p className="lyears">Trusted for 40 years</p>
 				<div className="lbar"><i /></div>
 				<p className="lmsg">Milling freshness…</p>
 			</div>
@@ -264,7 +246,7 @@ export default function App() {
 	const navItems = [
 		["Home", "home"],
 		["About", "about", [["About Jayakrishna", "about"], ["Vision & Mission", "vision"]]],
-		["Gallery", "gallery"], ["Insights", "insights"], ["Contact Us", "contact"],
+		["Gallery", "gallery"], ["Insights", "insights"], ["Testimonials", "testimonials"], ["Contact Us", "contact"],
 	];
 
 	return (
@@ -280,7 +262,7 @@ export default function App() {
 						<a href={`mailto:${EMAIL}`} className="hide-sm">✉️ {EMAIL}</a>
 					</div>
 					<div className="row gap">
-						<span className="fssai hide-sm">FSSAI CERTIFIED</span>
+						<span className="fssai hide-sm">★ 40 YEARS OF TRUST · FSSAI CERTIFIED</span>
 						<button className="lang" onClick={() => setLang(lang === "en" ? "ta" : "en")} aria-label="Switch language">
 							🌐 {lang === "en" ? "Tamil (தமிழ்)" : "English"}
 						</button>
@@ -290,10 +272,9 @@ export default function App() {
 
 			<header className={`nav ${scrolled ? "scrolled" : ""}`}>
 				<div className="wrap row between">
-					<a href="#home" className="logo" onClick={(e) => { e.preventDefault(); nav("home"); }}>
-						<span className="logo-mark"><img src="images/wheat-bundle.png" alt="" /></span>
-						<span><b>JAYAKRISHNA</b><em>FLOUR MILLS</em><small>QUALITY LIES IN CONSISTENCY</small></span>
-					</a>
+					<a href="#home" className="logo" onClick={(e) => { e.preventDefault(); nav("home"); }} aria-label="Jayakrishna Flour Mills – home">
+							<img src={LOGO} alt="Jayakrishna – Quality lies in Consistency" />
+						</a>
 					<nav className={`links ${menu ? "show" : ""}`} aria-label="Main">
 						{navItems.map(([label, id, sub]) => (
 							<div key={label} className="item" onMouseLeave={() => setOpen(null)}>
@@ -324,13 +305,16 @@ export default function App() {
 					<Grains />
 					<div className="hero wrap">
 						<div>
-							<span className="chip big up" style={{ "--d": "100ms" }}>🌾 {t("Every grain matters to us")}</span>
-							<h1 className={`wd ${ready ? "in" : ""}`}>
+							<div className="chips up" style={{ "--d": "100ms" }}>
+									<span className="chip big">🌾 {t("Every grain matters to us")}</span>
+									<span className="chip big gold">🏆 {t("40 Years of Trust")}</span>
+								</div>
+							<h1 className={`wd ${lang === "ta" ? "ta" : ""} ${ready ? "in" : ""}`}>
 								{lang === "ta"
 									? <><Words text={TA.h1} base={2} /><span className="l2"><Words text={TA.h2} base={5} /></span></>
 									: <><Words text="Built with Purpose." base={2} /><span className="l2"><Words text="Milled for Healthy Living." base={5} /></span></>}
 							</h1>
-							<p className="lead up" style={{ "--d": "1100ms" }}>Discover Jayakrishna Flour Mills — premium whole wheat atta, superfine maida, and golden suji shaped by quality, pure wheat grains, and continuous innovation for generations.</p>
+							<p className="lead up" style={{ "--d": "1100ms" }}>Discover Jayakrishna Flour Mills — 40 years of premium whole wheat atta, superfine maida, and golden suji shaped by quality, pure wheat grains, and continuous innovation.</p>
 							<p className="label up" style={{ "--d": "1250ms" }}>OUR TRUSTED BRANDS:</p>
 							<div className="row gap wrapx">
 								{BRANDS.map((b, i) => (
@@ -362,7 +346,8 @@ export default function App() {
 								<i key={slide} className="sbar" />
 							</div>
 							<img className="heroWheat" src="images/wheat-bundle.png" alt="" aria-hidden="true" decoding="async" />
-							<div className="float f1">🌾 100% Unbleached &amp; Safe</div>
+							<div className="seal" aria-label="40 years of trust"><b>40</b><span>YEARS</span><small>OF TRUST</small></div>
+								<div className="float f1">🌾 100% Unbleached &amp; Safe</div>
 							<div className="float f2">✨ 21–22 Paratas per kg</div>
 						</div>
 					</div>
@@ -387,7 +372,10 @@ export default function App() {
 						<span className="chip rv">ABOUT JAYAKRISHNA FLOUR MILLS</span>
 						<h2 className="wd rv"><Words text="Where experience meets a forward-looking approach." /></h2>
 						<span className="latin rv">🌾 <i>Triticum aestivum</i> · Common Bread Wheat</span>
-						<p className="muted narrow rv" style={{ "--d": "150ms" }}>Flour is valuable, versatile and nutritious. Packed with vitamins and minerals, it forms an essential foundation of daily life — from fresh morning rotis to artisanal bakery loaves.</p>
+						<p className="muted narrow rv" style={{ "--d": "150ms" }}>For 40 years we have milled with one promise: quality lies in consistency. Flour is valuable, versatile and nutritious. Packed with vitamins and minerals, it forms an essential foundation of daily life — from fresh morning rotis to artisanal bakery loaves.</p>
+						<div className="years rv z" style={{ "--d": "200ms" }}>
+							{YEARS.map(([n, l]) => <div key={l}><b>{n}</b><span>{l}</span></div>)}
+						</div>
 						<div className="grid3 left">
 							{FEATURES.map((x, i) => <div className="card rv" style={{ "--d": `${i * 130}ms` }} key={x.t}><i className="ico">{x.icon}</i><h4>{x.t}</h4><p>{x.d}</p></div>)}
 						</div>
@@ -405,6 +393,27 @@ export default function App() {
 						<h2 className="wd rv"><Words text="From Golden Harvest Fields to Pure Culinary Flour" /></h2>
 						<div className="grid3 left">
 							{STEPS.map(([h, d], i) => <div className="card rv" style={{ "--d": `${(i % 3) * 120}ms` }} key={h}><b className="num">0{i + 1}</b><h4>{h}</h4><p>{d}</p></div>)}
+						</div>
+					</div>
+				</section>
+
+				{/* TESTIMONIALS */}
+				<section id="testimonials" className="sec tsec">
+					<div className="wrap center">
+						<span className="chip rv">BAKER &amp; MERCHANT TESTIMONIALS</span>
+						<h2 className="wd rv"><Words text="Trusted by the people who bake and sell with us" /></h2>
+						<p className="muted narrow rv" style={{ "--d": "150ms" }}>For 40 years, hoteliers, bakers and bulk buyers have counted on Jayakrishna Flour Mills for the same quality in every bag.</p>
+						<div className="tgrid">
+							{TESTIMONIALS.map((x, i) => (
+								<figure className="tcard rv" style={{ "--d": `${i * 130}ms` }} key={x.who}>
+									{x.badge && <span className="tbadge">✦ {x.badge}</span>}
+									<blockquote>{x.quote}</blockquote>
+									<figcaption>
+										<i className="av" aria-hidden="true">{x.init}</i>
+										<span><b>{x.who}</b>{x.role && <small>{x.role}</small>}</span>
+									</figcaption>
+								</figure>
+							))}
 						</div>
 					</div>
 				</section>
@@ -464,7 +473,7 @@ export default function App() {
 			<WheatRow className="foot-row" count={40} />
 			<footer>
 				<div className="wrap fgrid4 rv">
-					<div><h3>🌾 JAYAKRISHNA FLOUR MILLS</h3><p>Milling premium Whole Wheat Atta, Maida, Commercial Atta, and Golden Suji across our trusted brand portfolio: Lion, Kili, and Cycle.</p>
+					<div><img className="flogo" src={LOGO} alt="Jayakrishna – Quality lies in Consistency" /><p>Milling premium Whole Wheat Atta, Maida, Commercial Atta, and Golden Suji for 40 years across our trusted brand portfolio: Lion, Kili, and Cycle.</p>
 						<div className="row gap soc">{[["f", "Facebook"], ["◎", "Instagram"], ["✆", "WhatsApp"]].map(([s, n]) => <a key={n} href={n === "WhatsApp" ? "https://wa.me/919443352716" : "#"} aria-label={n}>{s}</a>)}</div></div>
 					<div><h5>COMPANY</h5>
 						<a href="#about" onClick={(e) => { e.preventDefault(); nav("about"); }}>About JFM Heritage</a>
@@ -472,7 +481,7 @@ export default function App() {
 					<div><h5>CORPORATE POLICIES</h5><a href="#">Terms & Conditions</a><a href="#">Privacy Policy</a><a href="#">Return Policy</a><a href="#gallery" onClick={(e) => { e.preventDefault(); nav("gallery"); }}>Plant Infrastructure Gallery</a></div>
 					<div><h5>MILL & OFFICE</h5><p>{ADDRESS}</p><a href={`tel:${PHONE.replace(/\s/g, "")}`}>📞 {PHONE}</a><a href={`mailto:${EMAIL}`}>✉️ {EMAIL}</a></div>
 				</div>
-				<div className="wrap row between wrapx copy"><span>© 2026 Jayakrishna Flour Mills (JFM). All rights reserved. • FSSAI Certified</span><span>Pure wheat nutrition. Milled with consistency for generations.</span></div>
+				<div className="wrap row between wrapx copy"><span>© 2026 Jayakrishna Flour Mills (JFM). All rights reserved. • FSSAI Certified</span><span>Pure wheat nutrition. Milled with consistency for 40 years.</span></div>
 			</footer>
 
 		</div>
