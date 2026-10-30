@@ -15,9 +15,9 @@ const SLIDES = [
 ];
 
 const BRANDS = [
-	{ id: "Lion", name: "Lion Brand", sub: "Flagship Atta & Maida" },
-	{ id: "Kili", name: "Kili Brand", sub: "Hotel & Bakery Grade" },
-	{ id: "Cycle", name: "Cycle Brand", sub: "Pure Suji & Rava" },
+	{ id: "Lion", name: "Lion Brand", sub: "Flagship Atta & Maida", logo: "images/lion.png" },
+	{ id: "Kili", name: "Kili Brand", sub: "Hotel & Bakery Grade", logo: "images/kili.png" },
+	{ id: "Cycle", name: "Cycle Brand", sub: "Pure Suji & Rava", logo: "images/cycle.png" },
 ];
 
 const FEATURES = [
@@ -319,6 +319,7 @@ export default function App() {
 							<div className="row gap wrapx">
 								{BRANDS.map((b, i) => (
 									<div key={b.id} className="brand up" style={{ "--d": `${1350 + i * 120}ms` }}>
+										<img className="blogo" src={b.logo} alt={`${b.name} logo`} />
 										<span><b>{b.name}</b><small>{b.sub}</small></span>
 									</div>
 								))}
@@ -351,7 +352,6 @@ export default function App() {
 							<div className="float f2">✨ 21–22 Paratas per kg</div>
 						</div>
 					</div>
-					<WheatRow className="hero-row" />
 				</section>
 
 				<div className="marquee" aria-label="Why bakers choose our maida">
@@ -470,7 +470,7 @@ export default function App() {
 				</section>
 			</main>
 
-			<WheatRow className="foot-row" count={40} />
+			
 			<footer>
 				<div className="wrap fgrid4 rv">
 					<div><img className="flogo" src={LOGO} alt="Jayakrishna – Quality lies in Consistency" /><p>Milling premium Whole Wheat Atta, Maida, Commercial Atta, and Golden Suji for 40 years across our trusted brand portfolio: Lion, Kili, and Cycle.</p>
