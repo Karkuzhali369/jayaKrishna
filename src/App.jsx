@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 /* ---------- CONTENT (edit here) ---------- */
-const ECOMMERCE_URL = "https://jayakrishna-ecommerce.noorjahan-0569.workers.dev/";
+const ECOMMERCE_URL = "";
 const PHONE = "+91 93459 11301";
 const PHONE2 = "+91 75959 59797";
 const EMAIL = "contact@jayakrishna.org";
@@ -295,7 +295,7 @@ export default function App() {
 						))}
 					</nav>
 					<div className="row gap">
-						<a className="pill" href={ECOMMERCE_URL} target="_blank" rel="noopener noreferrer">🛒 {t("E-Commerce")}</a>
+						<button className="pill" onClick={() => alert("🚧 Under Construction! Coming Soon!")}>🛒 {t("E-Commerce")}</button>
 						<button className="burger" onClick={() => setMenu(!menu)} aria-label="Toggle menu">{menu ? "✕" : "☰"}</button>
 					</div>
 				</div>
@@ -327,7 +327,6 @@ export default function App() {
 								))}
 							</div>
 							<div className="row gap wrapx cta up" style={{ "--d": "1750ms" }}>
-								<a className="btn" href={ECOMMERCE_URL} target="_blank" rel="noopener noreferrer">{t("E-Commerce")} →</a>
 								<button className="btn ghost" onClick={() => nav("about")}>{t("About Jayakrishna")}</button>
 							</div>
 							<div className="stats up" style={{ "--d": "1950ms" }}>
@@ -480,7 +479,7 @@ export default function App() {
 						<div className="row gap soc">{[["f", "Facebook"], ["◎", "Instagram"], ["✆", "WhatsApp"]].map(([s, n]) => <a key={n} href={n === "WhatsApp" ? "https://wa.me/919345911301" : "#"} aria-label={n}>{s}</a>)}</div></div>
 					<div><h5>COMPANY</h5>
 						<a href="#about" onClick={(e) => { e.preventDefault(); nav("about"); }}>About JFM Heritage</a>
-						<a href={ECOMMERCE_URL} target="_blank" rel="noopener noreferrer">E-Commerce</a></div>
+						</div>
 					<div><h5>CORPORATE POLICIES</h5><a href="#">Terms & Conditions</a><a href="#">Privacy Policy</a><a href="#">Return Policy</a><a href="#gallery" onClick={(e) => { e.preventDefault(); nav("gallery"); }}>Plant Infrastructure Gallery</a></div>
 					<div><h5>MILL & OFFICE</h5><p>{ADDRESS}</p><a href={`tel:${PHONE.replace(/\s/g, "")}`}>📞 {PHONE}</a><a href={`tel:${PHONE2.replace(/\s/g, "")}`}>📞 {PHONE2}</a><br/><a href={`mailto:${EMAIL}`}>✉️ {EMAIL}</a></div>
 				</div>
