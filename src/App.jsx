@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 /* ---------- CONTENT (edit here) ---------- */
 const ECOMMERCE_URL = "";
-const PHONE = "+91 93459 11301";
+const PHONE = "+91 93459 11291";
 const PHONE2 = "+91 75959 59797";
 const EMAIL = "contact@jayakrishna.org";
 const ADDRESS = "82/3, Maravankulam, Thirumangalam, Madurai – 625706, Tamil Nadu, India";
@@ -37,16 +37,16 @@ const STEPS = [
 ];
 
 const GALLERY = [
-	{ cat: "Parata, Bread & Buns", tag: "JFM • PARATA", cap: "Soft Flaky Paratas", img: "images/paratha.png" },
-	{ cat: "Parata, Bread & Buns", tag: "JFM • BREAD", cap: "Fresh Sliced Breads", img: "images/bread.png" },
-	{ cat: "Parata, Bread & Buns", tag: "JFM • BUNS", cap: "Soft Golden Buns", img: "images/buns.png" },
+	{ cat: "Parotta, Bread & Buns", tag: "JFM • PAROTTA", cap: "Soft Flaky Parottas", img: "images/paratha.png" },
+	{ cat: "Parotta, Bread & Buns", tag: "JFM • BREAD", cap: "Fresh Sliced Breads", img: "images/bread.png" },
+	{ cat: "Parotta, Bread & Buns", tag: "JFM • BUNS", cap: "Soft Golden Buns", img: "images/buns.png" },
 	{ cat: "Puffs, Pastries & Vermicelli", tag: "JFM • PASTRIES", cap: "Flaky Puffs & Delicate Layered Pastries", img: "images/pastries.png" },
 	{ cat: "Puffs, Pastries & Vermicelli", tag: "JFM • VERMICELLI", cap: "Traditional Plain Raw Vermicelli Strands", img: "images/vermicelli.png" },
 ];
 
 const TA = {
 	Home: "முகப்பு", About: "எங்களைப் பற்றி", Gallery: "படத்தொகுப்பு", Insights: "நுண்ணறிவு",
-	Testimonials: "கருத்துகள்", "40 Years of Trust": "40 ஆண்டுகால நம்பிக்கை",
+	Testimonials: "கருத்துகள்", "40 Years of Trust (Since 1987)": "40 ஆண்டுகால நம்பிக்கை (1987 முதல்)",
 	"Contact Us": "தொடர்புக்கு", "E-Commerce": "இ-காமர்ஸ்", "About Jayakrishna": "ஜெயகிருஷ்ணா பற்றி",
 	"Every grain matters to us": "ஒவ்வொரு தானியமும் எங்களுக்கு முக்கியம்", h1: "நோக்கத்துடன் உருவானது.", h2: "ஆரோக்கிய வாழ்விற்காக அரைக்கப்பட்டது.",
 };
@@ -59,9 +59,15 @@ const SIZES_LABEL = ["500g • 1kg • 2kg • 5kg • 10kg", "25kg • 50kg •
 const LOGO = "images/logo.png";
 
 const TESTIMONIALS = [
-	{ who: "Madurai Hoteliers Association", init: "MH", quote: "We switch between Kili and Lion brands based on stock availability from Thirumangalam and Kappalur. Both deliver identical, world-class soft paratas that our customers love!" },
+	{ who: "Madurai Hoteliers Association", init: "MH", quote: "We switch between Kili and Lion brands based on stock availability from Thirumangalam and Kappalur. Both deliver identical, world-class soft parottas that our customers love!" },
 	{ who: "Royal Bakery Chain", init: "RB", badge: "0.0% (Zero Bleach)", quote: "Our puffs and pastries expanded by 20% in puffiness without adding any dough improver. Jayakrishna Flour Mill's Maida is a game-changer for commercial bakers." },
 	{ who: "Online Bulk Buyer", role: "E-Commerce Client", init: "OB", quote: "Ordering online direct from Jayakrishna Flour Mill saved us time and hassle. The flour quality is 100% consistent across every bag we receive!" },
+];
+
+// Board members. Add a photo by setting img, e.g. img: "images/board/rajkumar.jpg" (file goes in public/images/board/).
+const BOARD = [
+	{ name: "Mr. Rajkumar", role: "Managing Director", img: "" },
+	{ name: "Name to be added", role: "Director", img: "" },
 ];
 
 const YEARS = [["40", "Years of milling legacy"], ["3", "Trusted brands: Lion, Kili & Cycle"], ["100%", "Unbleached & safe"]];
@@ -167,7 +173,7 @@ function Loader({ out }) {
 			<div className="lbox">
 				<img className="lwheat" src="images/wheat-strands.png" alt="" aria-hidden="true" />
 				<img className="llogo" src={LOGO} alt="Jayakrishna – Quality lies in Consistency" />
-				<p className="lyears">Trusted for 40 years</p>
+				<p className="lyears">40 years of trust (since 1987)</p>
 				<div className="lbar"><i /></div>
 				<p className="lmsg">Milling freshness…</p>
 			</div>
@@ -247,7 +253,7 @@ export default function App() {
 	const navItems = [
 		["Home", "home"],
 		["About", "about", [["About Jayakrishna", "about"], ["Vision & Mission", "vision"]]],
-		["Gallery", "gallery"], ["Insights", "insights"], ["Testimonials", "testimonials"], ["Contact Us", "contact"],
+		["Gallery", "gallery"], ["Insights", "insights", [["Milling Journey", "insights"], ["Board Members", "board"]]], ["Testimonials", "testimonials"], ["Contact Us", "contact"],
 	];
 
 	return (
@@ -264,7 +270,7 @@ export default function App() {
 						<a href={`mailto:${EMAIL}`} className="hide-sm">✉️ {EMAIL}</a>
 					</div>
 					<div className="row gap">
-						<span className="fssai hide-sm">★ 40 YEARS OF TRUST · FSSAI CERTIFIED</span>
+						<span className="fssai hide-sm">★ 40 YEARS OF TRUST (SINCE 1987) · FSSAI CERTIFIED</span>
 						<button className="lang" onClick={() => setLang(lang === "en" ? "ta" : "en")} aria-label="Switch language">
 							🌐 {lang === "en" ? "Tamil (தமிழ்)" : "English"}
 						</button>
@@ -308,8 +314,11 @@ export default function App() {
 					<div className="hero wrap">
 						<div>
 							<div className="chips up" style={{ "--d": "100ms" }}>
-									<span className="chip big">🌾 {t("Every grain matters to us")}</span>
-									<span className="chip big gold">🏆 {t("40 Years of Trust")}</span>
+									<span className="grainline" role="heading" aria-level="2">
+										<span className="gl-text"> {t("Every grain matters to us")}</span>
+										{[1, 2, 3, 4, 5, 6].map((n) => <i key={n} className={`sp s${n}`} aria-hidden="true">✦</i>)}
+									</span>
+									<span className="chip big gold">🏆 {t("40 Years of Trust (Since 1987)")}</span>
 								</div>
 							<h1 className={`wd ${lang === "ta" ? "ta" : ""} ${ready ? "in" : ""}`}>
 								{lang === "ta"
@@ -348,9 +357,9 @@ export default function App() {
 								<i key={slide} className="sbar" />
 							</div>
 							<img className="heroWheat" src="images/wheat-bundle.png" alt="" aria-hidden="true" decoding="async" />
-							<div className="seal" aria-label="40 years of trust"><b>40</b><span>YEARS</span><small>OF TRUST</small></div>
-								<div className="float f1">🌾 100% Unbleached &amp; Safe</div>
-							<div className="float f2">✨ 21–22 Paratas per kg</div>
+							<div className="seal" aria-label="40 years of trust, since 1987"><b>40</b><span>YEARS</span><small>OF TRUST</small><em>SINCE 1987</em></div>
+								<div className="float f1"> 100% Unbleached &amp; Safe</div>
+							<div className="float f2">✨ 21–22 Parottas per kg</div>
 						</div>
 					</div>
 				</section>
@@ -372,7 +381,7 @@ export default function App() {
 					<div className="wrap center">
 						<span className="chip rv">ABOUT JAYAKRISHNA FLOUR MILLS</span>
 						<h2 className="wd rv"><Words text="Where experience meets a forward-looking approach." /></h2>
-						<span className="latin rv">🌾 <i>Triticum aestivum</i> · Common Bread Wheat</span>
+						<span className="latin rv"> <i>Triticum aestivum</i> · Common Bread Wheat</span>
 						<p className="muted narrow rv" style={{ "--d": "150ms" }}>For 40 years we have milled with one promise: quality lies in consistency. Flour is valuable, versatile and nutritious. Packed with vitamins and minerals, it forms an essential foundation of daily life — from fresh morning rotis to artisanal bakery loaves.</p>
 						<div className="years rv z" style={{ "--d": "200ms" }}>
 							{YEARS.map(([n, l]) => <div key={l}><b>{n}</b><span>{l}</span></div>)}
@@ -381,7 +390,7 @@ export default function App() {
 							{FEATURES.map((x, i) => <div className="card rv" style={{ "--d": `${i * 130}ms` }} key={x.t}><i className="ico">{x.icon}</i><h4>{x.t}</h4><p>{x.d}</p></div>)}
 						</div>
 						<div id="vision" className="vm left rv z">
-							<div><small>◉ OUR VISION</small><h3>To be South India's most trusted benchmark for pure, unadulterated wheat nutrition.</h3><p>Empowering households and food creators with pure whole grain products through honest milling and sustainable farmer relationships.</p></div>
+							<div><small>◉ OUR VISION</small><h3>To be India's most trusted benchmark for pure, unadulterated wheat nutrition.</h3><p>Empowering households and food creators with pure whole grain products through honest milling and sustainable farmer relationships.</p></div>
 							<div><small>◎ OUR MISSION</small><h3>To deliver batch-after-batch consistency that bakers and families can depend upon.</h3><p>Combining advanced pneumatic roller stands, multi-stage aspiration cleaning, and strict lab auditing to eliminate batch variation.</p></div>
 						</div>
 					</div>
@@ -394,6 +403,26 @@ export default function App() {
 						<h2 className="wd rv"><Words text="From Golden Harvest Fields to Pure Culinary Flour" /></h2>
 						<div className="grid3 left">
 							{STEPS.map(([h, d], i) => <div className="card rv" style={{ "--d": `${(i % 3) * 120}ms` }} key={h}><b className="num">0{i + 1}</b><h4>{h}</h4><p>{d}</p></div>)}
+						</div>
+					</div>
+				</section>
+
+				{/* BOARD MEMBERS */}
+				<section id="board" className="sec cream">
+					<div className="wrap center">
+						<span className="chip rv">LEADERSHIP</span>
+						<h2 className="wd rv"><Words text="Board Members" /></h2>
+						<div className="bgrid">
+							{BOARD.map((m, i) => (
+								<figure className="bcard rv" style={{ "--d": `${i * 130}ms` }} key={m.role}>
+									{m.img
+										? <img className="bphoto" src={m.img} alt={`${m.name}, ${m.role}`} loading="lazy" />
+										: <div className="bphoto bph" role="img" aria-label={`Photo of ${m.role} to be added`}>
+											<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="23" r="11" /><path d="M10 60c0-13 9-21 22-21s22 8 22 21z" /></svg>
+										</div>}
+									<figcaption><b>{m.name}</b><small>{m.role}</small></figcaption>
+								</figure>
+							))}
 						</div>
 					</div>
 				</section>
@@ -425,7 +454,7 @@ export default function App() {
 						<div className="row between wrapx ghead">
 							<div><span className="chip rv">VISUAL TOUR</span><h2 className="wd rv l"><Words text="Media & Photo Gallery" /></h2></div>
 							<div className="tabs sm rv r">
-								{["All Photos", "Parata, Bread & Buns", "Puffs, Pastries & Vermicelli"].map((c) => <button key={c} className={gcat === c ? "on" : ""} onClick={() => setGcat(c)}>{c}</button>)}
+								{["All Photos", "Parotta, Bread & Buns", "Puffs, Pastries & Vermicelli"].map((c) => <button key={c} className={gcat === c ? "on" : ""} onClick={() => setGcat(c)}>{c}</button>)}
 							</div>
 						</div>
 						<div className="ggrid">
@@ -445,7 +474,7 @@ export default function App() {
 							<p className="muted small rv" style={{ "--d": "150ms" }}>Expand your wholesale business with our trusted milling legacy. Reach out for dealership or commercial supply contracts.</p>
 							<div className="fgrid">
 								<label>Full Name *<input placeholder="e.g. Anand Kumar" {...f("name", 60)} autoComplete="name" aria-invalid={!!errs.name} />{errs.name && <em className="err">{errs.name}</em>}</label>
-								<label>Contact Phone *<input placeholder="+91 93459 11301" inputMode="tel" {...f("phone", 20)} autoComplete="tel" aria-invalid={!!errs.phone} />{errs.phone && <em className="err">{errs.phone}</em>}</label>
+								<label>Contact Phone *<input placeholder="+91 93459 11291" inputMode="tel" {...f("phone", 20)} autoComplete="tel" aria-invalid={!!errs.phone} />{errs.phone && <em className="err">{errs.phone}</em>}</label>
 								<label>Business / Enterprise Name<input placeholder="Distribution Agency, Bakery, etc." {...f("biz", 80)} autoComplete="organization" /></label>
 								<label>Partnership Type<select {...f("type")}>{TYPES.map((x) => <option key={x}>{x}</option>)}</select></label>
 								<label className="hp" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" {...f("website", 50)} /></label>
@@ -476,7 +505,7 @@ export default function App() {
 			<footer>
 				<div className="wrap fgrid4 rv">
 					<div><p>Milling premium Whole Wheat Atta, Maida, Commercial Atta, and Golden Suji for 40 years across our trusted brand portfolio: Lion, Kili, and Cycle.</p>
-						<div className="row gap soc">{[["f", "Facebook"], ["◎", "Instagram"], ["✆", "WhatsApp"]].map(([s, n]) => <a key={n} href={n === "WhatsApp" ? "https://wa.me/919345911301" : "#"} aria-label={n}>{s}</a>)}</div></div>
+						<div className="row gap soc">{[["f", "Facebook"], ["◎", "Instagram"], ["✆", "WhatsApp"]].map(([s, n]) => <a key={n} href={n === "WhatsApp" ? "https://wa.me/919345911291" : "#"} aria-label={n}>{s}</a>)}</div></div>
 					<div><h5>COMPANY</h5>
 						<a href="#about" onClick={(e) => { e.preventDefault(); nav("about"); }}>About JFM Heritage</a>
 						</div>

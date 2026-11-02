@@ -27,7 +27,67 @@ button{cursor:pointer;background:none;border:0}
 .drop button:hover{background:#fff3da}
 .pill{display:inline-block;text-decoration:none;animation:pulse 2.4s infinite;background:#fff3c4;border:1px solid #f3d36b;border-radius:999px;padding:7px 14px;font-size:12px;font-weight:700;color:var(--brown)}
 .burger{display:none;font-size:22px;color:var(--brown)}
+.coming-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
 
+.coming-popup {
+  background: white;
+  padding: 35px;
+  border-radius: 16px;
+  text-align: center;
+  max-width: 380px;
+  width: 100%;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+  animation: popupIn 0.3s ease;
+}
+
+.coming-icon {
+  font-size: 45px;
+}
+
+.coming-popup h2 {
+  color: #b47b16;
+  margin-bottom: 12px;
+}
+
+.coming-popup h3 {
+  color: #b47b16;
+  margin-bottom: 5px;
+}
+
+.coming-popup p {
+  color: #666;
+  line-height: 1.6;
+}
+
+.coming-popup button {
+  background: #b47b16;
+  color: white;
+  border: none;
+  padding: 11px 30px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+@keyframes popupIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 .chip{display:inline-block;background:#fff0bd;border:1px solid #f6d77a;color:#8f5a08;font-size:10px;font-weight:700;padding:4px 12px;border-radius:99px;letter-spacing:.04em}
 .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,64px);align-items:center;position:relative;z-index:1}
 h1{font-size:clamp(34px,5vw,54px);line-height:1.08;color:#7a4b06;margin:18px 0 18px}
@@ -425,28 +485,80 @@ h1.ta{font-size:clamp(26px,min(3.9vw,6vh),46px);line-height:1.2}
 @keyframes wheatRise{from{clip-path:inset(100% 0 0 0);transform:translateY(24px) scale(.96)}to{clip-path:inset(0 0 0 0);transform:none}}
 @media(max-height:520px) and (orientation:landscape){.lwheat{height:90px}}
 
-/* ================= v4: header + footer palette — primary #B90E0A, secondary cream #F5F0E6 ================= */
-:root{--pri:#B90E0A;--cr:#F5F0E6}
-.topbar{background:var(--pri);color:var(--cr);border-bottom:1px solid rgba(245,240,230,.22)}
-.topbar a,.fssai{color:var(--cr)}
-.lang{border-color:rgba(245,240,230,.75);background:rgba(245,240,230,.12);color:var(--cr)}
-.lang:hover{background:var(--cr);color:var(--pri)}
-.nav{background:var(--pri);box-shadow:0 2px 0 rgba(0,0,0,.12),0 6px 16px rgba(80,0,0,.25)}
-.logo img{background:var(--cr);box-shadow:0 2px 8px rgba(0,0,0,.25)}
-.links>.item>button{color:var(--cr)}
-.links>.item>button:hover{background:rgba(245,240,230,.16)}
-.drop{background:var(--cr);border-color:rgba(185,14,10,.25)}
-.drop button{color:var(--pri)}.drop button:hover{background:rgba(185,14,10,.09)}
-.pill{background:var(--cr);border-color:var(--cr);color:var(--pri)}
-.pill:hover{background:#fff}
-.burger{color:var(--cr)}.burger:hover{background:rgba(245,240,230,.16)}
+/* ================= v5: header + footer in golden amber (wheat) ================= */
+:root{--wheat:#E3A82B;--wheat-d:#C98A12;--wheat-ink:#3b2300;--cr:#F5F0E6}
+.topbar{background:var(--wheat-d);color:#fff8e6;border-bottom:1px solid rgba(59,35,0,.22)}
+.topbar a,.fssai{color:#fff8e6}
+.lang{border-color:rgba(59,35,0,.6);background:rgba(255,248,230,.35);color:var(--wheat-ink)}
+.lang:hover{background:var(--wheat-ink);color:var(--wheat)}
+.nav{background:linear-gradient(180deg,#EDB63C,var(--wheat));box-shadow:0 2px 0 rgba(59,35,0,.14),0 6px 16px rgba(90,55,0,.25)}
+.logo img{background:var(--cr);box-shadow:0 2px 8px rgba(59,35,0,.25)}
+.links>.item>button{color:var(--wheat-ink)}
+.links>.item>button:hover{background:rgba(59,35,0,.12)}
+.drop{background:var(--cr);border-color:rgba(201,138,18,.4)}
+.drop button{color:var(--wheat-ink)}.drop button:hover{background:rgba(227,168,43,.25)}
+.pill{background:var(--wheat-ink);border-color:var(--wheat-ink);color:#FFD66B}
+.pill:hover{background:#000}
+.burger{color:var(--wheat-ink)}.burger:hover{background:rgba(59,35,0,.12)}
 @media(max-width:960px){
-  .links{background:var(--pri);border-top:1px solid rgba(245,240,230,.25)}
-  .drop{background:transparent;border:0}.drop button{color:var(--cr)}.drop button:hover{background:rgba(245,240,230,.16)}
+  .links{background:var(--wheat);border-top:1px solid rgba(59,35,0,.25)}
+  .drop{background:transparent;border:0}.drop button{color:var(--wheat-ink)}.drop button:hover{background:rgba(59,35,0,.12)}
 }
-footer{background:var(--pri);color:var(--cr)}
-footer h3,footer h5{color:var(--cr)}
-footer a{color:var(--cr)}footer a:hover{color:#fff}
-.soc a{background:rgba(245,240,230,.14);color:var(--cr)}.soc a:hover{background:var(--cr);color:var(--pri)}
-.copy{border-top-color:rgba(245,240,230,.28)}
+footer{background:linear-gradient(180deg,var(--wheat),#D49A1E);color:var(--wheat-ink)}
+footer h3,footer h5{color:#2b1a00}
+footer a{color:var(--wheat-ink);font-weight:600}footer a:hover{color:#000}
+.soc a{background:rgba(59,35,0,.14);color:var(--wheat-ink)}.soc a:hover{background:var(--wheat-ink);color:var(--wheat)}
+.copy{border-top-color:rgba(59,35,0,.3)}
 .flogo{background:var(--cr)}
+
+/* ================= v5: larger, clearer brand logos (Kili / Lion / Cycle) ================= */
+.brand{gap:12px;padding:10px 16px 10px 10px;border-radius:16px}
+.blogo{width:86px;height:86px;padding:5px;border-radius:14px;object-fit:contain;background:#fff}
+.brand b{font-size:14px}.brand small{font-size:11px}
+@media(min-width:961px){.brand{flex-direction:column;text-align:center;gap:6px;padding:10px 12px 12px;flex:1 1 0;min-width:0}.blogo{width:84px;height:84px}.brand small{display:block}}
+@media(max-width:640px){.blogo{width:68px;height:68px}.brand{padding:8px 12px 8px 8px}}
+
+/* ================= v5: "Every grain matters to us" ================= */
+.chips{row-gap:12px}
+.grainline{position:relative;display:block;width:100%;padding:4px 6px 6px}
+.gl-text{display:inline-block;font:900 clamp(26px,2.6vw,36px)/1.15 "Playfair Display",Georgia,serif;letter-spacing:.01em;
+  background:linear-gradient(100deg,#7a4500 0%,#c98400 28%,#ffd75e 46%,#fff4c2 50%,#ffd75e 54%,#c98400 72%,#7a4500 100%);background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 2px 0 rgba(122,69,0,.25)) drop-shadow(0 6px 14px rgba(227,168,43,.45));
+  animation:glShine 3.2s linear infinite,glPulse 3.6s ease-in-out infinite}
+.sp{position:absolute;font-style:normal;color:#f0a800;text-shadow:0 0 8px #ffe27a,0 0 16px #ffc400;opacity:0;pointer-events:none;
+  animation:twinkle 2.4s ease-in-out infinite}
+.sp.s1{left:2%;top:-2px;font-size:16px;animation-delay:0s}
+.sp.s2{left:22%;bottom:-6px;font-size:12px;animation-delay:.5s}
+.sp.s3{left:46%;top:-8px;font-size:20px;animation-delay:1.1s}
+.sp.s4{left:66%;bottom:-4px;font-size:14px;animation-delay:.3s}
+.sp.s5{left:84%;top:0;font-size:18px;animation-delay:1.5s}
+.sp.s6{left:98%;bottom:2px;font-size:12px;animation-delay:.9s}
+@keyframes glShine{to{background-position:-250% 0}}
+@keyframes glPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.3) rotate(0)}50%{opacity:1;transform:scale(1.25) rotate(90deg)}}
+@media(max-width:640px){.gl-text{font-size:clamp(22px,7vw,30px)}.sp.s5,.sp.s6{display:none}}
+@media(prefers-reduced-motion:reduce){.gl-text{animation:none!important;background-position:50% 0}.sp{animation:none!important;opacity:.8}}
+
+/* ================= v5: "since 1987" on the seal ================= */
+.seal em{font-style:normal;font-size:7.5px;font-weight:800;letter-spacing:.1em;margin-top:3px}
+@media(max-width:640px){.seal em{display:none}}
+
+/* ================= v6: smaller Vision & Mission box so the wheat shows ================= */
+.aboutsec .vm{max-width:600px;margin-left:auto;margin-right:auto;padding:clamp(14px,2vw,20px);border-radius:18px;background:linear-gradient(135deg,rgba(185,127,16,.93),rgba(138,86,6,.93))}
+.aboutsec .vm>div{padding:0 14px}
+.aboutsec .vm small{font-size:9px}.aboutsec .vm h3{font-size:14px;line-height:1.35;margin:7px 0}.aboutsec .vm p{font-size:11.5px;line-height:1.5}
+@media(max-width:960px){
+  .aboutsec{padding-bottom:calc(clamp(150px,17vw,270px) + 28px)}
+  .aboutsec .vm{max-width:520px}
+}
+
+/* ================= v6: board members ================= */
+.bgrid{display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(18px,3vw,36px);margin-top:28px}
+.bcard{width:min(260px,100%);background:#fffdf3;border:1px solid var(--line);border-radius:20px;padding:20px 18px 22px;box-shadow:0 10px 26px rgba(74,28,8,.1);text-align:center;transition:transform .3s,box-shadow .3s}
+.bcard:hover{transform:translateY(-6px);box-shadow:0 18px 34px rgba(180,83,9,.18)}
+.bphoto{display:block;width:160px;height:160px;margin:0 auto 14px;border-radius:50%;object-fit:cover;border:4px solid var(--brand);box-shadow:0 8px 18px rgba(74,28,8,.18)}
+.bph{display:grid;place-items:center;background:linear-gradient(160deg,#fff4c2,#f3d27a)}
+.bph svg{width:70%;height:70%;fill:#c98a12;opacity:.7}
+.bcard b{display:block;font:700 19px/1.25 "Playfair Display",Georgia,serif;color:var(--brown)}
+.bcard small{display:inline-block;margin-top:8px;background:var(--brand);color:var(--brand-ink);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border-radius:99px}
