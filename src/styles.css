@@ -562,3 +562,56 @@ footer a{color:var(--wheat-ink);font-weight:600}footer a:hover{color:#000}
 .bph svg{width:70%;height:70%;fill:#c98a12;opacity:.7}
 .bcard b{display:block;font:700 19px/1.25 "Playfair Display",Georgia,serif;color:var(--brown)}
 .bcard small{display:inline-block;margin-top:8px;background:var(--brand);color:var(--brand-ink);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border-radius:99px}
+
+/* ================= v6: dealers page, dealers links, slimmer contact section ================= */
+.contact{grid-template-columns:1fr 1fr;margin-top:28px;align-items:stretch}
+.contact .map{margin-top:0}.contact .map iframe{height:calc(100% - 34px);min-height:200px}
+.inl{color:var(--brown);font-weight:700;text-decoration:underline}
+a.pill{cursor:pointer}
+.dealer-btn{background:#fff8e1!important;color:var(--wheat-ink)!important;border-color:var(--wheat-ink)!important;animation:none}
+.dealer-btn:hover{background:var(--wheat-ink)!important;color:#FFD66B!important}
+.fgrid4{grid-template-columns:1.3fr 1fr 1fr 1fr 1.2fr}
+.dealers-page{min-height:calc(var(--vh) - var(--hh));background:linear-gradient(180deg,#fff,#fdf6e0)}
+.dealers-page .wrap{max-width:820px}
+.backlink{display:inline-block;margin-bottom:16px;font-size:13px;font-weight:700;color:var(--brown)}
+.backlink:hover{text-decoration:underline}
+.dform{animation:rvUp .7s cubic-bezier(.2,.8,.2,1) backwards}
+.dtitle{font:700 clamp(26px,4vw,38px)/1.15 "Playfair Display",Georgia,serif;color:var(--brown);margin:8px 0 8px}
+.dform .fgrid label,.captcha{font-size:12px}
+.dform .fgrid input,.dform .fgrid select,.dform .fgrid textarea{font-size:14px}
+.captcha{display:flex;flex-direction:column;gap:6px}
+.cap-label{font-size:12px;font-weight:700;color:var(--brown)}
+.cap-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cap-img{border:2px solid var(--line);border-radius:12px;background:#fff6d6;max-width:100%;user-select:none;-webkit-user-select:none}
+.cap-refresh{width:40px;height:40px;border-radius:50%;border:2px solid var(--line);background:#fff;color:var(--brown);font-size:20px;line-height:1;display:grid;place-items:center;transition:.2s}
+.cap-refresh:hover{background:var(--amber);color:#fff;transform:rotate(180deg)}
+.cap-row input{flex:1 1 140px;min-width:0;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+.dform .ok a{text-decoration:underline;font-weight:700;color:inherit}
+@media(max-width:960px){.fgrid4{grid-template-columns:1fr 1fr}.dealer-btn{padding:6px 10px}.contact .map iframe{height:220px}}
+@media(max-width:640px){.fgrid4{grid-template-columns:1fr}.contact{grid-template-columns:1fr}.dealer-btn{font-size:11px;padding:6px 8px}}
+@media(max-width:480px){.nav .row.gap{gap:5px}.nav .pill{font-size:10.5px;padding:6px 7px}.burger{width:34px}.logo img{max-width:100%}.nav>.wrap{gap:6px}.nav .logo{min-width:0;flex:0 1 auto}}
+
+/* ================= v7: dark brown header + footer ================= */
+:root{--dbrown:#3b2412;--dbrown2:#2b190b;--dbrown3:#4a2f18;--dgold:#f5c04a;--dtext:#f6ead2}
+.topbar{background:var(--dbrown2);color:var(--dtext);border-bottom:1px solid rgba(245,192,74,.25)}
+.topbar a,.topbar span{color:var(--dtext)}.topbar a:hover{color:var(--dgold)}
+.lang{border-color:rgba(245,192,74,.6);background:rgba(245,192,74,.12);color:var(--dgold)}
+.lang:hover{background:var(--dgold);color:var(--dbrown2)}
+.nav{background:linear-gradient(180deg,var(--dbrown3),var(--dbrown));box-shadow:0 2px 0 rgba(245,192,74,.35),0 8px 20px rgba(0,0,0,.35)}
+.links>.item>button{color:var(--dtext)}
+.links>.item>button:hover{background:rgba(245,192,74,.16);color:var(--dgold)}
+.drop{background:var(--dbrown2);border-color:rgba(245,192,74,.3)}
+.drop button{color:var(--dtext)}.drop button:hover{background:rgba(245,192,74,.16);color:var(--dgold)}
+.pill{background:var(--dgold);border-color:var(--dgold);color:var(--dbrown2)}
+.dealer-btn{background:transparent!important;color:var(--dgold)!important;border-color:var(--dgold)!important}
+.dealer-btn:hover{background:var(--dgold)!important;color:var(--dbrown2)!important}
+.burger{color:var(--dgold)}.burger:hover{background:rgba(245,192,74,.16)}
+@media(max-width:960px){
+  .links{background:var(--dbrown2);border-top:1px solid rgba(245,192,74,.25)}
+  .drop{background:transparent;border:0}.drop button{color:var(--dtext)}.drop button:hover{background:rgba(245,192,74,.16)}
+}
+footer{background:linear-gradient(180deg,var(--dbrown),var(--dbrown2));color:var(--dtext)}
+footer h3,footer h5{color:var(--dgold)}
+footer a{color:var(--dtext);font-weight:600}footer a:hover{color:var(--dgold)}
+.soc a{background:rgba(245,192,74,.14);color:var(--dgold)}.soc a:hover{background:var(--dgold);color:var(--dbrown2)}
+.copy{border-top-color:rgba(245,192,74,.3);color:rgba(246,234,210,.8)}

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import Dealers from "./Dealers.jsx";
 
 /* ---------- CONTENT (edit here) ---------- */
 const ECOMMERCE_URL = "";
@@ -47,12 +48,11 @@ const GALLERY = [
 const TA = {
 	Home: "முகப்பு", About: "எங்களைப் பற்றி", Gallery: "படத்தொகுப்பு", Insights: "நுண்ணறிவு",
 	Testimonials: "கருத்துகள்", "40 Years of Trust (Since 1987)": "40 ஆண்டுகால நம்பிக்கை (1987 முதல்)",
-	"Contact Us": "தொடர்புக்கு", "E-Commerce": "இ-காமர்ஸ்", "About Jayakrishna": "ஜெயகிருஷ்ணா பற்றி",
+	"Contact Us": "தொடர்புக்கு", Dealers: "விநியோகஸ்தர்கள்", "E-Commerce": "இ-காமர்ஸ்", "About Jayakrishna": "ஜெயகிருஷ்ணா பற்றி",
 	"Every grain matters to us": "ஒவ்வொரு தானியமும் எங்களுக்கு முக்கியம்", h1: "நோக்கத்துடன் உருவானது.", h2: "ஆரோக்கிய வாழ்விற்காக அரைக்கப்பட்டது.",
 };
 
 const HIGHLIGHTS = ["40 Years of Trusted Milling", "100% Unbleached & Safe", "2-Day Refrigerated Dough Stability", "+10% Higher Yield", "Natural Half-White Tone", "Zero Preservatives Needed", "Superior Water Absorption", "Direct Doorstep Delivery"];
-const TYPES = ["Dealership / Distributorship", "Bakery / Hotel Supply", "Bulk Commercial Supply", "Retail / Wholesale"];
 
 const SIZES_LABEL = ["500g • 1kg • 2kg • 5kg • 10kg", "25kg • 50kg • 90kg", "Thirumangalam, TN"];
 
@@ -74,6 +74,8 @@ const YEARS = [["40", "Years of milling legacy"], ["3", "Trusted brands: Lion, K
 
 /* ---------- SMALL HELPERS ---------- */
 const go = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+// tiny hash router (works on any static host): "#/dealers" is the dealers page, anything else is the home page
+const routeOf = () => (/^#\/dealers\/?$/.test(window.location.hash) ? "dealers" : "home");
 
 function Img({ src, alt, className, pos }) {
 	const [bad, setBad] = useState(!src);
@@ -188,9 +190,7 @@ export default function App() {
 	const [open, setOpen] = useState(null); // open dropdown
 	const [slide, setSlide] = useState(0);
 	const [gcat, setGcat] = useState("All Photos");
-	const [form, setForm] = useState({ name: "", phone: "", biz: "", type: TYPES[0], region: "", msg: "", website: "" });
-	const [errs, setErrs] = useState({});
-	const [sent, setSent] = useState(false);
+	const [route, setRoute] = useState(routeOf);
 	const [ready, setReady] = useState(false);   // loader finished -> start page animations
 	const [gone, setGone] = useState(false);     // loader unmounted
 	const [scrolled, setScrolled] = useState(false);
@@ -219,36 +219,34 @@ export default function App() {
 	}, []);
 
 	useEffect(() => {
+		const onHash = () => setRoute(routeOf());
+		window.addEventListener("hashchange", onHash);
+		return () => window.removeEventListener("hashchange", onHash);
+	}, []);
+
+	// after a route change: dealers page starts at the top; home page scrolls to the section that was clicked (if any)
+	const pendingGo = useRef(null);
+	useEffect(() => {
+		if (route === "dealers") { window.scrollTo(0, 0); return; }
+		if (pendingGo.current) { const id = pendingGo.current; pendingGo.current = null; setTimeout(() => go(id), 60); }
+	}, [route]);
+
+	useEffect(() => {
 		if (!ready) return;
 		const els = document.querySelectorAll(".rv");
 		if (!("IntersectionObserver" in window)) { els.forEach((e) => e.classList.add("in")); return; }
 		const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
 		els.forEach((e) => io.observe(e));
 		return () => io.disconnect();
-	}, [ready]);
+	}, [ready, route]);
 
-	const nav = (id) => { go(id); setMenu(false); setOpen(null); };
-
-	const lastSend = useRef(0);
-	// strip control characters / angle brackets, collapse whitespace, cap length
-	const clean = (v, max) => String(v).replace(/[\u0000-\u001f\u007f<>]/g, " ").replace(/\s+/g, " ").trim().slice(0, max);
-	const submit = (e) => {
-		e.preventDefault();
-		if (form.website) { setSent(true); return; }            // honeypot: bots fill hidden fields
-		if (Date.now() - lastSend.current < 8000) return;       // basic rate limit
-		const v = { name: clean(form.name, 60), phone: clean(form.phone, 20), biz: clean(form.biz, 80), region: clean(form.region, 80), msg: clean(form.msg, 800) };
-		const type = TYPES.includes(form.type) ? form.type : TYPES[0];
-		const er = {};
-		if (!/^[\p{L}\p{M}.'\- ]{2,60}$/u.test(v.name)) er.name = "Enter your full name";
-		if (!/^(\+91)?[\s-]?[6-9]\d{4}[\s-]?\d{5}$/.test(v.phone)) er.phone = "Enter a valid 10-digit mobile number";
-		setErrs(er);
-		if (Object.keys(er).length) return;
-		lastSend.current = Date.now();
-		const body = `Name: ${v.name}\nPhone: ${v.phone}\nBusiness: ${v.biz}\nType: ${type}\nRegion: ${v.region}\n\n${v.msg}`;
-		window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Partnership enquiry: " + type)}&body=${encodeURIComponent(body)}`;
-		setSent(true);
+	const nav = (id) => {
+		setMenu(false); setOpen(null);
+		if (route === "home") { go(id); return; }
+		pendingGo.current = id;               // come back to the home page, then scroll to the section
+		window.location.hash = "#/";
 	};
-	const f = (k, max = 120) => ({ value: form[k], maxLength: max, onChange: (e) => setForm({ ...form, [k]: e.target.value }) });
+	const openDealers = (e) => { e?.preventDefault(); setMenu(false); setOpen(null); window.location.hash = "#/dealers"; };
 
 	const navItems = [
 		["Home", "home"],
@@ -301,6 +299,7 @@ export default function App() {
 						))}
 					</nav>
 					<div className="row gap">
+						<a href="#/dealers" className="pill dealer-btn" onClick={openDealers}>🤝 {t("Dealers")}</a>
 						<button className="pill" onClick={() => alert("🚧 Under Construction! Coming Soon!")}>🛒 {t("E-Commerce")}</button>
 						<button className="burger" onClick={() => setMenu(!menu)} aria-label="Toggle menu">{menu ? "✕" : "☰"}</button>
 					</div>
@@ -308,6 +307,7 @@ export default function App() {
 			</header>
 
 			<main>
+				{route === "dealers" ? <Dealers phone={PHONE} email={EMAIL} onHome={() => { window.location.hash = "#/"; }} /> : <>
 				{/* HERO */}
 				<section id="home" className="herobg">
 					<Grains />
@@ -467,38 +467,27 @@ export default function App() {
 
 				{/* CONTACT */}
 				<section id="contact" className="sec white">
-					<div className="wrap contact">
-						<form className="enq rv l" onSubmit={submit} noValidate>
-							<span className="chip rv">DEALERSHIP & COMMERCIAL ENQUIRIES</span>
-							<h2 className="wd rv l"><Words text="Partner with Jayakrishna Flour Mills" /></h2>
-							<p className="muted small rv" style={{ "--d": "150ms" }}>Expand your wholesale business with our trusted milling legacy. Reach out for dealership or commercial supply contracts.</p>
-							<div className="fgrid">
-								<label>Full Name *<input placeholder="e.g. Anand Kumar" {...f("name", 60)} autoComplete="name" aria-invalid={!!errs.name} />{errs.name && <em className="err">{errs.name}</em>}</label>
-								<label>Contact Phone *<input placeholder="+91 93459 11291" inputMode="tel" {...f("phone", 20)} autoComplete="tel" aria-invalid={!!errs.phone} />{errs.phone && <em className="err">{errs.phone}</em>}</label>
-								<label>Business / Enterprise Name<input placeholder="Distribution Agency, Bakery, etc." {...f("biz", 80)} autoComplete="organization" /></label>
-								<label>Partnership Type<select {...f("type")}>{TYPES.map((x) => <option key={x}>{x}</option>)}</select></label>
-								<label className="hp" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" {...f("website", 50)} /></label>
-								<label className="full">Operating Region / District<input placeholder="e.g. Madurai, Chennai, Coimbatore, Kerala" {...f("region", 80)} /></label>
-								<label className="full">Proposal / Business Details<textarea rows="3" placeholder="Tell us about your distribution reach, existing network, or requirement details..." {...f("msg", 800)} /></label>
-							</div>
-							<button className="btn wide" type="submit">SUBMIT PARTNERSHIP ENQUIRY ➤</button>
-							{sent && <p className="ok" role="status">Your email app should open with the enquiry. If it did not, write to {EMAIL} or call {PHONE}.</p>}
-						</form>
-						<aside className="rv r">
-							<div className="dark">
+					<div className="wrap">
+						<div className="center">
+							<span className="chip rv">CONTACT US</span>
+							<h2 className="wd rv"><Words text="Visit or call our mill" /></h2>
+							<p className="muted narrow rv" style={{ "--d": "150ms" }}>Looking to become a dealer or place a commercial order? <a className="inl" href="#/dealers" onClick={openDealers}>Send us a dealership enquiry</a>.</p>
+						</div>
+						<div className="contact">
+							<div className="dark rv l">
 								<h3>Direct Mill Contacts</h3>
 								<div className="crow"><i>📞</i><div><small>Direct Contact</small><a href={`tel:${PHONE.replace(/\s/g, "")}`}>{PHONE}</a><br/><a href={`tel:${PHONE2.replace(/\s/g, "")}`}>{PHONE2}</a></div></div>
-								
 								<div className="crow"><i>✉️</i><div><small>Email Inquiries</small><a href={`mailto:${EMAIL}`}>{EMAIL}</a></div></div>
 								<div className="crow"><i>📍</i><div><small>Mill Location & Office</small><span>Jayakrishna Flour Mills<br />{ADDRESS.replace(", Madurai", ",\nMadurai")}</span></div></div>
 							</div>
-							<div className="map">
+							<div className="map rv r">
 								<div className="row between"><b>📌 Thirumangalam Mill Site</b><span className="open">Open Mon-Sat</span></div>
 								<iframe title="Mill location map" loading="lazy" referrerPolicy="no-referrer" sandbox="allow-scripts allow-same-origin" src="https://www.google.com/maps?q=Thirumangalam,Madurai&output=embed" />
 							</div>
-						</aside>
+						</div>
 					</div>
 				</section>
+				</>}
 			</main>
 
 			
@@ -508,6 +497,10 @@ export default function App() {
 						<div className="row gap soc">{[["f", "Facebook"], ["◎", "Instagram"], ["✆", "WhatsApp"]].map(([s, n]) => <a key={n} href={n === "WhatsApp" ? "https://wa.me/919345911291" : "#"} aria-label={n}>{s}</a>)}</div></div>
 					<div><h5>COMPANY</h5>
 						<a href="#about" onClick={(e) => { e.preventDefault(); nav("about"); }}>About JFM Heritage</a>
+						</div>
+					<div><h5>DEALERS</h5>
+						<a href="#/dealers" onClick={openDealers}>Dealership Enquiry</a>
+						<a href="#/dealers" onClick={openDealers}>Commercial Enquiry</a>
 						</div>
 					<div><h5>CORPORATE POLICIES</h5><a href="#">Terms & Conditions</a><a href="#">Privacy Policy</a><a href="#">Return Policy</a><a href="#gallery" onClick={(e) => { e.preventDefault(); nav("gallery"); }}>Plant Infrastructure Gallery</a></div>
 					<div><h5>MILL & OFFICE</h5><p>{ADDRESS}</p><a href={`tel:${PHONE.replace(/\s/g, "")}`}>📞 {PHONE}</a><a href={`tel:${PHONE2.replace(/\s/g, "")}`}>📞 {PHONE2}</a><br/><a href={`mailto:${EMAIL}`}>✉️ {EMAIL}</a></div>
