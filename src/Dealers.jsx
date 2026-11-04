@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /* WhatsApp number that receives every dealer / commercial enquiry (country code + number, no "+" or spaces) */
-const WA_NUMBER = "919342453871";
+const WA_NUMBER = "919345911291";
 const TYPES = ["Dealership / Distributorship", "Bakery / Hotel Supply", "Bulk Commercial Supply", "Retail / Wholesale"];
 
 /* characters that are easy to tell apart (no 0/O, 1/I/L) */

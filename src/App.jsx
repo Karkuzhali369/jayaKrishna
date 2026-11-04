@@ -11,7 +11,7 @@ const ADDRESS = "82/3, Maravankulam, Thirumangalam, Madurai – 625706, Tamil Na
 const SLIDES = [
 	{ tag: "From our farms", title: "Golden Wheat Fields", sub: "Premium Sharbati and Lokwan wheat, grown by trusted farmers and harvested at peak maturity.", img: "images/wheat-field.jpg", pos: "center" },
 	{ tag: "Quality starts here", title: "Pure Wheat Grains", sub: "Every kernel is cleaned, graded and tested for test weight and protein before it reaches our mill.", img: "images/wheat-grains.jpg", pos: "center" },
-	{ tag: "Farm to mill", title: "Fresh Grain Sacks", sub: "Carefully harvested and stored grain, ready to be milled into pure, consistent flour.", img: "images/grain-sack.jpg", pos: "center 60%" },
+	{ tag: "Farm to mill", title: "Fresh Grain Sacks", sub: "Carefully harvested and stored grain, ready to be milled into pure, consistent flour.", img: "images/grain-sack.png", pos: "center 60%" },
 	{ tag: "Freshly milled", title: "Pure Wheat Flour", sub: "Chilled roller milling keeps the natural bran, germ and gluten elasticity intact.", img: "images/wheat-flour.jpeg", pos: "center" },
 	{ tag: "From grain to table", title: "Wholesome Wheat Bread", sub: "Our flour bakes into soft, golden loaves with a strong rise and a tender crumb.", img: "images/bread-wheat.jpeg", pos: "center" },
 ];
@@ -327,7 +327,7 @@ export default function App() {
 							</h1>
 							<p className="lead up" style={{ "--d": "1100ms" }}>Discover Jayakrishna Flour Mills — 40 years of premium whole wheat atta, superfine maida, and golden suji shaped by quality, pure wheat grains, and continuous innovation.</p>
 							<p className="label up" style={{ "--d": "1250ms" }}>OUR TRUSTED BRANDS:</p>
-							<div className="row gap wrapx">
+							<div className="brands">
 								{BRANDS.map((b, i) => (
 									<div key={b.id} className="brand up" style={{ "--d": `${1350 + i * 120}ms` }}>
 										<img className="blogo" src={b.logo} alt={`${b.name} logo`} />
