@@ -5,11 +5,11 @@
       "destination": "https://jayakrishna-flour-mill.vercel.app/api/:path*"
     },
     {
-      "source": "/ecommerce",
+      "source": "/e-commerce",
       "destination": "https://jayakrishna-flour-mill.vercel.app"
     },
     {
-      "source": "/ecommerce/:path*",
+      "source": "/e-commerce/:path*",
       "destination": "https://jayakrishna-flour-mill.vercel.app/:path*"
     }
   ]
