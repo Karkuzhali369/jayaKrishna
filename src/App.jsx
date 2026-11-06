@@ -300,7 +300,14 @@ export default function App() {
 					</nav>
 					<div className="row gap">
 						<a href="#/dealers" className="pill dealer-btn" onClick={openDealers}>🤝 {t("Dealers")}</a>
-						<button className="pill" onClick={() => alert("🚧 Under Construction! Coming Soon!")}>🛒 {t("E-Commerce")}</button>
+						<a
+						    className="pill"
+						    href="https://jayakrishna.org/e-commerce"
+						    target="_blank"
+						    rel="noopener noreferrer"
+						>
+						    🛒 {t("E-Commerce")}
+						</a>
 						<button className="burger" onClick={() => setMenu(!menu)} aria-label="Toggle menu">{menu ? "✕" : "☰"}</button>
 					</div>
 				</div>
