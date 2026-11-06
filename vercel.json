@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/api/:path*",
+      "destination": "https://jayakrishna-flour-mill.vercel.app/api/:path*"
+    },
+    {
       "source": "/ecommerce",
       "destination": "https://jayakrishna-flour-mill.vercel.app"
     },
