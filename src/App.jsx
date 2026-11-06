@@ -66,8 +66,8 @@ const TESTIMONIALS = [
 
 // Board members. Add a photo by setting img, e.g. img: "images/board/rajkumar.jpg" (file goes in public/images/board/).
 const BOARD = [
-	{ name: "Mr. Rajkumar", role: "Managing Director", img: "" },
-	{ name: "Name to be added", role: "Director", img: "" },
+	{ name: "R.K.MOHAN", role: "Managing Director", img: "" },
+	{ name: "Rajkumar R.K.M ", role: "Joint Managing Director", img: "" },
 ];
 
 const YEARS = [["40", "Years of milling legacy"], ["3", "Trusted brands: Lion, Kili & Cycle"], ["100%", "Unbleached & safe"]];
